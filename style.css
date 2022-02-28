@@ -1,0 +1,35 @@
+:root {
+    --screen-color: #9bbc0f;
+}
+
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url('./assets/Adult-Swim-Font/Adult-Swim-Font.ttf');
+}
+
+body {
+    background-color: black;
+}
+
+#title {
+    color: white;
+    text-align: center;
+}
+
+#screen {
+    font-family: 'Hellvetica Neue',sans-serif;
+    height: 15vh;
+    background-color: var(--screen-color);
+}
+
+button {
+    font-family: 'Hellvetica Neue', sans-serif;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+#keypad {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
