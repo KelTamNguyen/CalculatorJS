@@ -11,28 +11,40 @@
 </head>
 <body>
     <h1 id="title">[calculator]</h1>
-    <div id="screen"><h1 class="input"></h1></div>
-    <div id="keypad">
-        <button id="CE">CE</button>
-        <button id="delete">DEL</button></i></button>
-        <button id="power">&Hat;</button>
-        <button id="divide">&divide;</button>
-        <button id="7">7</button>
-        <button id="8">8</button>
-        <button id="9">9</button>
-        <button id="times">&times;</button>
-        <button id="4">4</button>
-        <button id="5">5</button>
-        <button id="6">6</button>
-        <button id="minus">-</button>
-        <button id="1">1</button>
-        <button id="2">2</button>
-        <button id="3">3</button>
-        <button id="plus">+</button>
-        <button id="decimal">.</button>
-        <button id="0">0</button>
-        <button id="negate">+/-</button>
-        <button id="equal">=</button>
+    <div id="calculator-container">
+        <div id="display"><p class="input"></p></div>
+        <div id="keypad">
+            <div class="key-row">
+                <button id="clear-btn">CE</button>
+                <button id="modulus" class="operator">%</button>
+                <button id="exponent" class="operator">^</button>
+                <button id="divide" class="operator">÷</button>
+            </div>
+            <div class="key-row">
+                <button id="7" class="numkey">7</button>
+                <button id="8" class="numkey">8</button>
+                <button id="9" class="numkey">9</button>
+                <button id="times" class="operator">×</button>
+            </div>
+            <div class="key-row">
+                <button id="4" class="numkey">4</button>
+                <button id="5" class="numkey">5</button>
+                <button id="6" class="numkey">6</button>
+                <button id="minus" class="operator">-</button>
+            </div>
+            <div class="key-row">
+                <button id="1" class="numkey">1</button>
+                <button id="2" class="numkey">2</button>
+                <button id="3" class="numkey">3</button>
+                <button id="plus" class="operator">+</button>
+            </div>
+            <div class="key-row">
+                <button id="negate">(-)</button>
+                <button id="0" class="numkey">0</button>
+                <button id="decimal" class="numkey">.</button>
+                <button id="equal">=</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>

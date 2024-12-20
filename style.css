@@ -9,6 +9,8 @@
 
 body {
     background-color: black;
+    margin: 0;
+    padding: 0;
 }
 
 #title {
@@ -16,20 +18,29 @@ body {
     text-align: center;
 }
 
-#screen {
-    font-family: 'Hellvetica Neue',sans-serif;
-    height: 15vh;
+#calculator-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+#display {
+    height: 50px;
+    width: 200px;
     background-color: var(--screen-color);
 }
 
-button {
-    font-family: 'Hellvetica Neue', sans-serif;
-    font-size: 1em;
-    font-weight: bold;
+#keypad {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-#keypad {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+button {
+    font-size: 18px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    font-family: 'Helvetica Neue', sans-serif;
 }
