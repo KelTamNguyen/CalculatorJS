@@ -31,10 +31,22 @@ body {
     background-color: var(--screen-color);
 }
 
+#input {
+    /* width: inherit; */
+    /* direction: rtl; */
+    /* display: block; */
+}
+
 #keypad {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 8px;
+}
+
+.key-row {
+    display: flex;
+    gap: 12px;
 }
 
 button {

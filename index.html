@@ -12,37 +12,39 @@
 <body>
     <h1 id="title">[calculator]</h1>
     <div id="calculator-container">
-        <div id="display"><p class="input"></p></div>
+        <div id="display">
+            <span id="input">0</span>
+        </div>
         <div id="keypad">
             <div class="key-row">
-                <button id="clear-btn">CE</button>
-                <button id="modulus" class="operator">%</button>
-                <button id="exponent" class="operator">^</button>
-                <button id="divide" class="operator">÷</button>
+                <button id="clear-btn" data-action="clear">AC</button>
+                <button id="modulus" class="operator" data-action="modulus">%</button>
+                <button id="exponent" class="operator" data-action="exponent">^</button>
+                <button id="divide" class="operator" data-action="divide">÷</button>
             </div>
             <div class="key-row">
                 <button id="7" class="numkey">7</button>
                 <button id="8" class="numkey">8</button>
                 <button id="9" class="numkey">9</button>
-                <button id="times" class="operator">×</button>
+                <button id="times" class="operator" data-action="multiply">×</button>
             </div>
             <div class="key-row">
                 <button id="4" class="numkey">4</button>
                 <button id="5" class="numkey">5</button>
                 <button id="6" class="numkey">6</button>
-                <button id="minus" class="operator">-</button>
+                <button id="minus" class="operator" data-action="subtract">-</button>
             </div>
             <div class="key-row">
                 <button id="1" class="numkey">1</button>
                 <button id="2" class="numkey">2</button>
                 <button id="3" class="numkey">3</button>
-                <button id="plus" class="operator">+</button>
+                <button id="plus" class="operator" data-action="add">+</button>
             </div>
             <div class="key-row">
-                <button id="negate">(-)</button>
+                <button id="negate" data-action="negate">+/-</button>
                 <button id="0" class="numkey">0</button>
-                <button id="decimal" class="numkey">.</button>
-                <button id="equal">=</button>
+                <button id="decimal" class="numkey" data-action="decimal">.</button>
+                <button id="equal" data-action="calculate">=</button>
             </div>
         </div>
     </div>
