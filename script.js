@@ -3,7 +3,7 @@ console.log('The script is running');
 // Variables
 // let lhs = 0;
 // let operator, rhs = undefined;
-let inputs = [];
+// let inputs = [];
 
 // DOM Nodes
 const input = document.querySelector('#input');
@@ -45,11 +45,11 @@ function division(dividend, divisor) {
 } 
 
 function power(base, exponent) {
-	return Math.pow(base, exponent);
+	return base ** exponent;
 };
 
 function negateNumber(number) {
-	return 0 - number;
+	return number * -1;
 }
 
 function findRemainder(a, n) {
@@ -76,6 +76,118 @@ function calculate(n1, operator, n2) {
 			return n1 ** n2;
 	}
 }
+
+function getKeyType(key) {
+	const { action } = key.dataset;
+  if (!action) return 'number';
+  if (
+		action === 'add' ||
+		action === 'subtract' ||
+		action === 'multiply' ||
+		action === 'divide' || 
+		action === 'exponent' ||
+		action === 'modulus'
+  ) return 'operator';
+	if (action === 'negate') return negate;
+  // For everything else, return the action
+  return action;
+
+}
+
+function createResultString(key, displayedNum, state) {
+	const keyContent = key.textContent;
+  const { action } = key.dataset;
+	const keyType = getKeyType(key);
+  const {
+    firstValue,
+    modValue,
+    operator,
+    previousKeyType
+  } = state;
+
+	if (keyType === 'number') {
+		return (displayedNum === '0' || previousKeyType === 'operator' || previousKeyType === 'calculate') ? keyContent : (displayedNum +  keyContent);
+	}
+
+	if (keyType === 'decimal') {
+    if (!displayedNum.includes('.')) return (displayedNum + '.'); 
+		if (previousKeyType === 'operator' || previousKeyType === 'calculate') return '0.';
+		return displayedNum;
+  }
+
+	if (keyType === 'negate') return negateNumber(parseFloat(displayedNum));
+
+	if (keyType === 'operator') {
+    return (
+			firstValue && 
+			operator && 
+			previousKeyType !== 'operator' && 
+			previousKeyType !== 'calculate'
+		) ? calculate(firstValue, operator, secondValue) : displayedNum;
+  }
+
+	if (keyType === 'clear') return 0;
+
+	if (keyType === 'calculate') {
+    if (firstValue) {
+      if (previousKeyType === 'calculate') {
+        return calculate(displayedNum, operator, modValue);
+      }
+      return calculate(firstValue, operator, secondValue);
+			// previousKeyType === 'calculate' ? calculate(displayedNum, operator, modValue) : calculate(firstValue, operator, displayedNum);
+    } 
+		else {
+      return displayedNum;
+    }
+  }
+}
+
+function updateCalculatorState(key, calculator, calculatedValue, displayedNum) {
+	const keyType = getKeyType(key)
+	calculator.dataset.previousKeyType = keyType;
+
+	Array.from(key.parentNode.children).forEach(k => k.classList.remove('is-depressed'));
+
+	if (keyType === 'operator') {
+		if (
+			firstValue &&
+			operator &&
+			previousKeyType !== 'operator' &&
+			previousKeyType !== 'calculate'
+		) {
+			calculator.dataset.firstValue = calculatedValue;
+		} else {
+			calculator.dataset.firstValue = displayedNum;
+		}
+	
+		key.classList.add('is-depressed')
+		calculator.dataset.operator = key.dataset.action;
+	}
+
+  if (keyType === 'calculate') {
+    calculator.dataset.modValue = (firstValue && previousKeyType === 'calculate') ? modValue : displayedNum;
+  }
+
+  if (keyType === 'clear' && key.textContent === 'AC') {
+    calculator.dataset.firstValue = '';
+    calculator.dataset.modValue = '';
+    calculator.dataset.operator = '';
+    calculator.dataset.previousKeyType = '';
+  }
+}
+
+// keypad.addEventListener('click', e => {
+//   if (e.target.matches('button')) return;
+
+//   const key = e.target;
+//   const displayedNum = input.textContent;
+//   const resultString = createResultString(key, displayedNum, calculator.dataset);
+
+//   input.textContent = resultString;
+
+//   // Pass in necessary values
+//   updateCalculatorState(key, calculator, resultString, displayedNum);
+// });
 
 keypad.addEventListener('click', e => {
   if (e.target.matches('button')) {
@@ -116,7 +228,7 @@ keypad.addEventListener('click', e => {
 
 		if (action === 'negate') {
 			console.log('+/- pressed!');
-			input.textContent = (parseFloat(input.textContent) * -1).toString();
+			input.textContent = (negateNumber(parseFloat(displayedNum))).toString();
 			calculator.dataset.previousKeyType = 'negate';
 		}
 
@@ -124,7 +236,9 @@ keypad.addEventListener('click', e => {
       action === 'add' ||
       action === 'subtract' ||
       action === 'multiply' ||
-      action === 'divide'
+      action === 'divide' || 
+			action === 'exponent' ||
+			action === 'modulus'
     ) {
       const firstValue = calculator.dataset.firstValue;
       const operator = calculator.dataset.operator;
@@ -186,14 +300,3 @@ keypad.addEventListener('click', e => {
     }
   }
 });
-
-
-// Debug
-// console.log('6 + 9 = ', add(6, 9));
-// console.log('6 - 9 = ', subtract(6, 9));
-// console.log('6 * 9 = ', multiply(6, 9));
-// console.log('6 / 9 = ', division(6, 9));
-// console.log('6 ^ 9 = ', power(6, 9));
-// console.log('6 % 4 = ', findRemainder(6, 4));
-// console.log('negated 6 = ', negateNumber(6));
-// console.log(numKeys);
