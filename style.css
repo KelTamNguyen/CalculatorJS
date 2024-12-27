@@ -1,5 +1,11 @@
 :root {
-    --screen-color: #9bbc0f;
+    --screen-color: #eeeeee;
+    --color-mint-green: #c6efdf;
+    --key-font: 'Helvetica Neue', sans-serif;
+    --display-housing-color: #4e4f54;
+    --display-font: 'Departure Mono', sans-serif;
+    --operator-key-color: #c4c9cd;
+    --bezel-color: #3c3c3c;
 }
 
 @font-face {
@@ -7,10 +13,15 @@
     src: url('./assets/Adult-Swim-Font/Adult-Swim-Font.ttf');
 }
 
+@font-face {
+    font-family: 'Departure Mono';
+    src: url(./assets/DepartureMono-1.422/DepartureMono-Regular.woff);
+}
+
 body {
-    background-color: black;
     margin: 0;
     padding: 0;
+    background-color: seagreen;
 }
 
 #title {
@@ -22,19 +33,57 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    margin-top: 20px;
+    /* gap: 12px; */
+    /* width: fit-content; */
+}
+
+#display-container {
+    background-color: var(--display-housing-color);
+    padding: 20px;
+    border-radius: 15px 15px 0 0;
+}
+
+#display-container h1 {
+    font-size: 12px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+}
+
+#display-container p {
+    font-size: 12px;
+    color: white;
+    text-align: center;
+    margin: 0;
 }
 
 #display {
-    height: 50px;
-    width: 200px;
+    height: 75px;
+    width: 250px;
     background-color: var(--screen-color);
+    border-color: var(--bezel-color);
+    border-width: 10px 20px;
+    border-style: solid;
+    box-sizing: border-box;
+    display: table;
 }
 
 #input {
-    /* width: inherit; */
-    /* direction: rtl; */
-    /* display: block; */
+    font-family: var(--display-font);
+    font-size: 24px;
+    text-align: right;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#keypad-container {
+    width: 250px;
+    background-color: var(--color-mint-green);
+    padding: 20px;
+    border-radius: 0 0 15px 15px;
 }
 
 #keypad {
@@ -42,6 +91,13 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 8px;
+}
+
+#keypad-container h1 {
+    color: black;
+    font-size: 12px;
+    text-align: center;
+    color: white;
 }
 
 .key-row {
@@ -52,7 +108,57 @@ body {
 button {
     font-size: 18px;
     height: 40px;
-    width: 40px;
+    width: 50px;
     border-radius: 50%;
-    font-family: 'Helvetica Neue', sans-serif;
+    border-radius: 5px;
+    font-family: var(--key-font);
+    font-weight: bold;
+}
+
+.numkey:hover {
+    background-color: black;
+    color: white;
+}
+
+.operator {
+    background-color: var(--operator-key-color);
+}
+
+.operator:hover {
+    background-color: white;
+}
+
+.is-depressed {
+    background-color: white;
+    color: black;
+}
+
+#negate {
+    background-color: #39699c;
+    color:white;
+}
+
+#negate:hover {
+    background-color: white;
+    color: #39699c;
+}
+
+#equal {
+    background-color: #6abf81;
+    color: white;
+}
+
+#equal:hover {
+    background-color: white;
+    color: #6abf81;
+}
+
+.clear-btn {
+    background-color: black;
+    color: white;
+}
+
+.clear-btn:hover {
+    background-color: white;
+    color: black;
 }
