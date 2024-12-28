@@ -116,7 +116,7 @@ button {
     font-weight: bold;
 }
 
-.numkey:hover {
+.numkey:hover, .numkey.active {
     background-color: black;
     color: white;
 }
@@ -139,7 +139,7 @@ button {
     color:white;
 }
 
-#negate:hover {
+#negate:hover, #negate.active {
     background-color: white;
     color: #39699c;
 }
@@ -149,7 +149,7 @@ button {
     color: white;
 }
 
-#equal:hover {
+#equal:hover, #equal.active {
     background-color: white;
     color: #6abf81;
 }
@@ -159,7 +159,7 @@ button {
     color: white;
 }
 
-.clear-btn:hover {
+.clear-btn:hover, .clear-btn.active {
     background-color: white;
     color: black;
 }
