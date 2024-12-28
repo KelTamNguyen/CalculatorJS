@@ -80,7 +80,7 @@ function createResultString(key, displayedNum, state) {
   const {
     firstValue,
     operator,
-    modValue,
+    modifierValue,
     previousKeyType
   } = state;
 
@@ -90,9 +90,12 @@ function createResultString(key, displayedNum, state) {
   }
 
   if (keyType === 'decimal') {
-    if (!displayedNum.includes('.')) return displayedNum + '.';
+    // check previous input type first
     if (previousKeyType === 'operator' || previousKeyType === 'calculate') return '0.';
-    return displayedNum;
+    // if not decimal add decimal point
+    else if (!displayedNum.includes('.')) return displayedNum + '.';
+    // throw out input if decimal already present
+    else return displayedNum;
   }
 
 	if (keyType === 'negate') return calculate(displayedNum, 'negate');
@@ -115,7 +118,7 @@ function createResultString(key, displayedNum, state) {
 		if (firstValue) {
 			if(previousKeyType === 'calculate') {
 				// Consecutive presses of the equals button results in consecutive calculations
-				return calculate(displayedNum, operator, modValue);
+				return calculate(displayedNum, operator, modifierValue);
 			}
 			// Normal calculation
 			else return calculate(firstValue, operator, displayedNum);
@@ -129,7 +132,7 @@ function updateCalculatorState(key, calculator, calculatedValue, displayedNum) {
   const {
     firstValue,
     operator,
-    modValue,
+    modifierValue,
     previousKeyType
   } = calculator.dataset;
 
@@ -139,26 +142,30 @@ function updateCalculatorState(key, calculator, calculatedValue, displayedNum) {
 		// Set to the most recently pressed operator
     calculator.dataset.operator = key.dataset.action;
 
-		if (firstValue && previousKeyType !== 'operator' && previousKeyType !== 'calculate') calculator.dataset.firstValue = calculatedValue;
+		if (firstValue && previousKeyType !== 'operator' && previousKeyType !== 'calculate') calculator.dataset.firstValue = calculatedValue; // for when you want to perform an operation of the result
 		else calculator.dataset.firstValue = displayedNum;
   }
 
   if (keyType === 'calculate') {
-		if (firstValue && previousKeyType === 'calculate') calculator.dataset.modValue = modValue;
-		else calculator.dataset.modValue = displayedNum;
+		if (firstValue && previousKeyType === 'calculate') calculator.dataset.modifierValue = modifierValue;
+		else calculator.dataset.modifierValue = displayedNum;
 	}
 
   if (keyType === 'clear' && key.textContent === 'AC') {
     calculator.dataset.firstValue = '';
-    calculator.dataset.modValue = '';
+    calculator.dataset.modifierValue = '';
     calculator.dataset.operator = '';
     calculator.dataset.previousKeyType = '';
   }
 }
 
 function updateVisualState(key, calculator) {
-  const keyType = getKeyType(key)
-  Array.from(key.parentNode.children).forEach(k => k.classList.remove('is-depressed'));
+  const keyType = getKeyType(key);
+
+  // this line will work when the calculator is changed from a flex container to a grid container in the future
+  // Array.from(key.parentNode.children).forEach(k => k.classList.remove('is-depressed'));
+
+  Array.from(document.querySelectorAll('.operator')).forEach(k => k.classList.remove('is-depressed'));
 
 	// Add styles to the currently active operator button
   if (keyType === 'operator') key.classList.add('is-depressed');
@@ -183,6 +190,8 @@ keypad.addEventListener('click', (e) => {
 });
 
 document.addEventListener('keydown', (e) => {
+  console.log(e.key);
+  
   let key;
   const shortInputs = '1234567890+-/*.=^%';
   
