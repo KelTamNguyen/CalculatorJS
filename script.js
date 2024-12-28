@@ -74,6 +74,7 @@ function getKeyType(key) {
 }
 
 function createResultString(key, displayedNum, state) {
+  // console.log(key);
   const keyContent = key.textContent;
   const keyType = getKeyType(key);
   const {
@@ -176,6 +177,23 @@ keypad.addEventListener('click', (e) => {
   const displayedNum = input.textContent;
   const resultString = createResultString(key, displayedNum, calculator.dataset);
 
+  input.textContent = resultString;
+  updateCalculatorState(key, calculator, resultString, displayedNum);
+  updateVisualState(key, calculator);
+});
+
+document.addEventListener('keydown', (e) => {
+  let key;
+  const shortInputs = '1234567890+-/*.=^%';
+  
+  if (e.repeat) return;
+  if (e.key === 'Enter') key = document.querySelector(`[data-value="="]`);
+  if (e.key === 'Escape') key = document.querySelector('#clear-btn');
+  if (shortInputs.includes(e.key)) key = document.querySelector(`[data-value="${e.key}"]`);
+  const displayedNum = input.textContent;
+  
+  const resultString = createResultString(key, displayedNum, calculator.dataset);
+  
   input.textContent = resultString;
   updateCalculatorState(key, calculator, resultString, displayedNum);
   updateVisualState(key, calculator);
